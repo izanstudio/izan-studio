@@ -1,0 +1,2034 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>izan'studio · Diseñador gráfico en Vic (Barcelona) | Branding y editorial</title>
+  <meta name="description" content="Portfolio de Izan, diseñador gráfico en Vic (Barcelona) especializado en branding, dirección creativa y diseño editorial." />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <style>
+    @font-face {
+      font-family: Coolvetica;
+      src: url("fonts/Coolvetica-Light.otf") format("opentype");
+      font-weight: 100 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Coolvetica;
+      src: url("fonts/coolvetica-rg.woff2") format("woff2"),
+        url("fonts/coolvetica%20rg.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Coolvetica;
+      src: url("fonts/coolvetica-rg-it.woff2") format("woff2"),
+        url("fonts/coolvetica%20rg%20it.ttf") format("truetype");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    /* Text per a Google i lectors de pantalla: existeix a la pàgina però no es veu */
+    .seo-text {
+      position: absolute !important;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #000;
+      color: #fff;
+      font-family: Coolvetica, Arial, sans-serif;
+      font-weight: 400;
+      transition: background-color 240ms ease, color 240ms ease;
+    }
+
+    body.is-light {
+      background: #fff;
+      color: #000;
+    }
+
+    nav {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      min-height: 50px;
+      z-index: 2;
+    }
+
+    .site-modes {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      display: flex;
+      gap: 28px;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .site-mode {
+      border: 0;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 0;
+      transition: color 180ms ease;
+    }
+
+    .site-mode:hover {
+      color: #3b00db;
+    }
+
+    .site-mode.is-active {
+      color: #3b00db;
+    }
+
+    .boring-portfolio {
+      position: fixed;
+      inset: 110px 24px 82px;
+      z-index: 1;
+      opacity: 0;
+      overflow-y: auto;
+      pointer-events: none;
+      scrollbar-width: none;
+      transition: opacity 240ms ease;
+    }
+
+    .boring-portfolio::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Menú de la web per avorrits: about/contacte a l'esquerra, categories a la dreta */
+    .boring-menu {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px 28px;
+      padding-bottom: 16px;
+      background: #000;
+      transition: background-color 240ms ease;
+    }
+
+    .boring-menu-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 22px;
+    }
+
+    .boring-menu button {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      transition: color 180ms ease;
+    }
+
+    .boring-menu button:hover,
+    .boring-menu button.is-active {
+      color: #3b00db;
+    }
+
+    body.is-light .boring-menu {
+      background: #fff;
+    }
+
+    .boring-project[hidden] {
+      display: none;
+    }
+
+    .boring-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .boring-project {
+      display: block;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+    }
+
+    .boring-project-media {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #151515;
+    }
+
+    .boring-project-media img,
+    .boring-project-media video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      transition: transform 320ms ease, opacity 180ms ease;
+    }
+
+    .boring-project-info {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0 0;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .boring-project:hover .boring-project-media img,
+    .boring-project:hover .boring-project-media video {
+      transform: scale(1.025);
+      opacity: 0.78;
+    }
+
+    body.is-boring .boring-portfolio {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    body.is-boring .star,
+    body.is-boring .shooting-star,
+    body.is-boring .message-image,
+    body.is-boring .saved-projects,
+    body.is-boring .saved-info {
+      display: none;
+    }
+
+    .background-toggle {
+      position: fixed;
+      top: 40px;
+      left: 24px;
+      width: 18px;
+      height: 18px;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      z-index: 2;
+      transition: background-color 240ms ease, transform 180ms ease;
+    }
+
+    .background-toggle:hover {
+      transform: scale(1.18);
+    }
+
+    .logo {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      width: 150px;
+      height: 50px;
+      background-image: url("logo.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    a {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 400;
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+
+    a:hover,
+    a.active {
+      color: #3b00db;
+    }
+
+    body.is-light a {
+      color: #000;
+    }
+
+    body.is-light .site-mode {
+      color: #000;
+    }
+
+    body.is-light .site-mode:hover {
+      color: #3b00db;
+    }
+
+    body.is-light .boring-project-media {
+      background: #e8e8e8;
+    }
+
+    body.is-light .boring-project {
+      color: #000;
+    }
+
+    body.is-light .background-toggle {
+      background: #000;
+    }
+
+    body.is-light a:hover,
+    body.is-light a.active {
+      color: #3b00db;
+    }
+
+    .star {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 10px;
+      opacity: 0;
+      pointer-events: none;
+      filter: brightness(0) drop-shadow(0 0 0 rgba(59, 0, 219, 0));
+      transform: translate(-50%, -50%);
+      transition: opacity 900ms ease, filter 900ms ease;
+      z-index: 1;
+    }
+
+    .star.is-visible {
+      opacity: 1;
+      filter: brightness(1) drop-shadow(0 0 6px #3b00db) drop-shadow(0 0 18px rgba(59, 0, 219, 0.75));
+    }
+
+    .message-image {
+      position: fixed;
+      inset: 0;
+      background-image: url("message-cat.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: min(72vw, 760px) auto;
+      opacity: 1;
+      pointer-events: none;
+      transition: opacity 520ms ease;
+      z-index: 0;
+    }
+
+    .message-image.is-changing {
+      opacity: 0;
+    }
+
+    .shooting-star {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 34px;
+      opacity: 0;
+      pointer-events: auto;
+      transform: translate(-300px, 0);
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    .shooting-star.decorative {
+      width: 150px;
+      height: 18px;
+      pointer-events: none;
+      cursor: default;
+    }
+
+      .shooting-star.contrast::before {
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.18) 45%, rgba(255, 255, 255, 0.98));
+      }
+
+      .shooting-star.contrast::after {
+        filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 54px rgba(255, 255, 255, 0.52));
+      }
+
+      body.is-light .shooting-star.contrast::before {
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0.98));
+      }
+
+      body.is-light .shooting-star.contrast::after {
+        filter: brightness(0) drop-shadow(0 0 18px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 54px rgba(0, 0, 0, 0.28));
+      }
+
+    .shooting-star::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      width: 230px;
+      height: 16px;
+      background: linear-gradient(90deg, rgba(59, 0, 219, 0), rgba(59, 0, 219, 0.18) 45%, rgba(59, 0, 219, 0.98));
+      clip-path: polygon(0 48%, 100% 0, 100% 100%);
+      filter: blur(2.5px);
+      transform: translateY(-50%) rotate(var(--shoot-angle));
+      transform-origin: right center;
+      animation: trail-dance 620ms ease-in-out infinite;
+    }
+
+    .shooting-star.decorative::before {
+      top: 12%;
+      right: 12px;
+      width: 130px;
+      height: 4px;
+      filter: blur(1.8px);
+    }
+
+    .shooting-star::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 48px;
+      height: 48px;
+      background-image: url("star.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      filter: drop-shadow(0 0 18px #3b00db) drop-shadow(0 0 42px rgba(59, 0, 219, 0.95)) drop-shadow(0 0 68px rgba(59, 0, 219, 0.75));
+      transform: translateY(-50%);
+    }
+
+    .shooting-star.decorative::after {
+      width: 18px;
+      height: 18px;
+      filter: drop-shadow(0 0 8px #3b00db) drop-shadow(0 0 20px rgba(59, 0, 219, 0.8));
+    }
+
+    .shooting-star.is-flying {
+      animation: shooting-star-flight 14s ease-in-out forwards;
+    }
+
+    .shooting-star.decorative.is-flying {
+      animation-duration: 4.4s;
+    }
+
+    @keyframes shooting-star-flight {
+      0% {
+        opacity: 0;
+        transform: translate(var(--shoot-start-x), var(--shoot-start-y));
+      }
+
+      12%,
+      98% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate(var(--shoot-end-x), var(--shoot-end-y));
+      }
+    }
+
+    @keyframes trail-dance {
+      0% {
+        opacity: 0.58;
+        filter: blur(2px);
+        transform: translateY(calc(-48% + 4px)) rotate(var(--shoot-angle)) scaleX(0.94) scaleY(0.82) skewY(-1deg);
+      }
+
+      35% {
+        opacity: 0.95;
+        filter: blur(3.2px);
+        transform: translateY(calc(-56% + 4px)) rotate(var(--shoot-angle)) scaleX(1.05) scaleY(1.18) skewY(2deg);
+      }
+
+      70% {
+        opacity: 0.72;
+        filter: blur(2.7px);
+        transform: translateY(calc(-43% + 4px)) rotate(var(--shoot-angle)) scaleX(0.99) scaleY(0.94) skewY(-2deg);
+      }
+
+      100% {
+        opacity: 1;
+        filter: blur(3.6px);
+        transform: translateY(calc(-52% + 4px)) rotate(var(--shoot-angle)) scaleX(1.08) scaleY(1.18) skewY(1deg);
+      }
+    }
+
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 5;
+      transition: opacity 180ms ease;
+    }
+
+    .popup-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+      .popup {
+        position: relative;
+        display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+      width: min(920px, calc(100vw - 48px));
+      height: min(560px, calc(100vh - 96px));
+      background: #000;
+      color: #fff;
+      font-family: Coolvetica, Arial, sans-serif;
+      overflow: hidden;
+      box-shadow: 0 0 28px rgba(59, 0, 219, 0.72), 0 0 90px rgba(59, 0, 219, 0.42);
+    }
+
+      .popup-media {
+        position: relative;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .popup-images {
+        display: block;
+        height: 100%;
+        padding: 0;
+        overflow-y: auto;
+        scrollbar-width: none;
+      }
+
+      .popup-images::-webkit-scrollbar {
+        display: none;
+      }
+
+      .popup-images img,
+      .popup-images video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        object-fit: cover;
+        background: #111;
+      }
+
+      .popup-images img:not(:last-child),
+      .popup-images video:not(:last-child) {
+        margin-bottom: 0;
+      }
+
+      .popup-images video {
+        pointer-events: none;
+      }
+
+      .popup-scroll-hint {
+        position: absolute;
+        bottom: 18px;
+        right: 18px;
+        z-index: 2;
+        color: inherit;
+        font-size: 12px;
+        font-weight: 400;
+        pointer-events: none;
+      }
+
+    .popup-content {
+      display: flex;
+      flex-direction: column;
+      padding: 18px;
+    }
+
+    .popup-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    .popup-award {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 6px 0 4px;
+      color: #3b00db;
+      font-size: 12px;
+    }
+
+    .popup-award svg {
+      width: 12px;
+      height: 12px;
+      flex: none;
+    }
+
+    .popup h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      font-weight: 400;
+    }
+
+      .popup p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.45;
+        font-weight: 400;
+      }
+
+      .popup p + p {
+      margin-top: 0.9em;
+    }
+
+    .popup-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-top: auto;
+        padding-top: 28px;
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      .popup-save {
+        position: absolute;
+        left: 18px;
+        bottom: 18px;
+        z-index: 2;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+        padding: 0;
+        transition: color 180ms ease;
+      }
+
+      .popup-close {
+        width: auto;
+        height: auto;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+        font-size: 14px;
+        line-height: 1;
+        padding: 0;
+        transition: color 180ms ease;
+      }
+
+      .popup-save.on-light,
+      .popup-scroll-hint.on-light {
+        color: #000;
+      }
+
+      .popup-save.on-dark,
+      .popup-scroll-hint.on-dark {
+        color: #fff;
+      }
+
+      .popup-media.use-blend .popup-save,
+      .popup-media.use-blend .popup-scroll-hint {
+        color: #fff;
+        mix-blend-mode: difference;
+      }
+
+      .popup-media.use-blend .popup-label-layer {
+        pointer-events: none;
+      }
+
+      .popup-save:hover,
+      .popup-close:hover {
+        color: #3b00db;
+      }
+
+      .saved-projects {
+        position: fixed;
+        right: 0;
+        top: 50%;
+        display: grid;
+        gap: 8px;
+        transform: translateY(-50%);
+        z-index: 4;
+      }
+
+      .saved-project-tab {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: #fff;
+        color: #000;
+        font-size: 12px;
+        transition: background-color 180ms ease;
+      }
+
+      .saved-project-title,
+      .saved-project-remove {
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+        transition: color 180ms ease;
+      }
+
+      .saved-project-title {
+        flex: 1;
+        max-width: 150px;
+        padding: 8px 10px;
+        text-align: left;
+      }
+
+      /* La creu surt per l'esquerra i fa la pestanya més ampla, sense moure el text */
+      .saved-project-remove {
+        position: absolute;
+        top: 0;
+        right: 100%;
+        bottom: 0;
+        width: 0;
+        padding: 0 0 0 10px;
+        overflow: hidden;
+        opacity: 0;
+        background: inherit;
+        font-size: 18px;
+        line-height: 1;
+        text-align: left;
+        transition: width 180ms ease, opacity 180ms ease, color 180ms ease;
+      }
+
+      /* Per pujar o baixar la creu, canvia aquest valor */
+      .saved-project-remove span {
+        position: relative;
+        top: 0.5px;
+      }
+
+      .saved-project-tab:hover .saved-project-remove,
+      .saved-project-remove:focus-visible {
+        width: 22px;
+        opacity: 1;
+      }
+
+      .saved-project-title:hover,
+      .saved-project-remove:hover {
+        color: #3b00db;
+      }
+
+      /* Requadre de la medalla a les pestanyes de projectes premiats */
+      .saved-project-award {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: stretch;
+        width: 30px;
+        flex: none;
+        background: #3b00db;
+        color: #fff;
+      }
+
+      .saved-project-award svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* Popup sense imatges (contacte): tot el text a l'esquerra */
+      .popup.popup--text-only {
+        grid-template-columns: 1fr;
+      }
+
+      .popup.popup--text-only .popup-media {
+        display: none;
+      }
+
+      .popup-actions .popup-save {
+        position: static;
+      }
+
+      /* Pestanyes guardades del costat esquerre (about me i contacte) */
+      .saved-info {
+        right: auto;
+        left: 0;
+      }
+
+      .saved-info .saved-project-remove {
+        right: auto;
+        left: 100%;
+        padding: 0 10px 0 0;
+        text-align: right;
+      }
+
+      body.is-light .saved-project-tab {
+        background: #000;
+        color: #fff;
+      }
+
+    /* Mòbil i pantalles estretes */
+    @media (max-width: 760px) {
+      nav {
+        gap: 16px;
+      }
+
+      .logo {
+        width: 110px;
+      }
+
+      .site-modes {
+        gap: 20px;
+      }
+
+      .site-mode {
+        white-space: nowrap;
+      }
+
+      /* Popup: imatges a dalt, text a sota */
+      .popup {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
+        /* Mida del popup al mòbil: més espai al voltant */
+        width: calc(100vw - 72px);
+        height: min(600px, calc(100dvh - 180px));
+      }
+
+      .popup.popup--text-only {
+        grid-template-rows: minmax(0, 1fr);
+      }
+
+      .popup-content {
+        border-top: 0;
+        overflow-y: auto;
+      }
+
+      .popup h2 {
+        font-size: 22px;
+      }
+
+      /* Web per avorrits: una sola columna */
+      .boring-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    /* Mòbils molt estrets */
+    @media (max-width: 400px) {
+      nav {
+        right: 16px;
+        gap: 12px;
+      }
+
+      .background-toggle {
+        left: 16px;
+      }
+
+      .logo {
+        width: 90px;
+      }
+    }
+
+    /* Botons de contacte: mail, instagram i whatsapp */
+    .contact-links {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .contact-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 64px;
+      padding: 12px;
+      border: 1px solid currentColor;
+      color: inherit;
+      font-size: 14px;
+      text-decoration: none;
+      transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    .contact-links a:hover {
+      border-color: #3b00db;
+      background: #3b00db;
+      color: #fff;
+    }
+
+    /* Popup de contacte (sense imatges): més petit i amb l'alçada justa del contingut */
+    .popup.popup--text-only:not(.popup--message) {
+      width: min(640px, calc(100vw - 72px));
+      height: auto;
+      min-height: 0;
+      grid-template-rows: auto;
+    }
+
+    .popup.popup--text-only:not(.popup--message) .popup-actions {
+      margin-top: 32px;
+    }
+
+    /* Popup petit de missatge (quan ja has atrapat tots els projectes) */
+    .popup.popup--message {
+      width: min(460px, calc(100vw - 72px));
+      height: auto;
+      min-height: 220px;
+      grid-template-rows: auto;
+    }
+
+    .popup.popup--message h2 {
+      margin-block: auto;
+      padding: 12px 0;
+      text-align: center;
+    }
+
+    /* Mòbil: pestanyes guardades més compactes */
+    @media (max-width: 760px) {
+      .saved-projects {
+        gap: 4px;
+      }
+
+      .saved-project-tab {
+        font-size: 11px;
+      }
+
+      .saved-project-title {
+        max-width: 96px;
+        padding: 5px 8px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .saved-project-award {
+        width: 22px;
+      }
+
+      .saved-project-award svg {
+        width: 11px;
+        height: 11px;
+      }
+
+      .saved-project-remove {
+        font-size: 15px;
+      }
+    }
+
+    /* Pantalles tàctils: la creu de les pestanyes guardades sempre visible */
+    @media (hover: none) {
+      .saved-project-remove {
+        width: 22px;
+        opacity: 1;
+      }
+    }
+
+    body.is-light .popup {
+      background: #fff;
+      color: #000;
+    }
+
+    body.is-light .popup-images img,
+    body.is-light .popup-images video {
+      background: #e8e8e8;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="background-toggle" type="button" aria-label="Canviar fons" aria-pressed="false"></button>
+  <div class="logo" aria-label="izan'studio"></div>
+  <nav aria-label="Idiomes">
+    <a href="?lang=ca" lang="ca">cat</a>
+    <a class="active" href="./" lang="es">esp</a>
+    <a href="?lang=en" lang="en">eng</a>
+  </nav>
+  <div class="site-modes" aria-label="Modes de la web">
+    <button class="site-mode" type="button" data-mode="boring">web per avorrits</button>
+    <button class="site-mode is-active" type="button" data-mode="fun">web per divertits</button>
+  </div>
+  <main class="boring-portfolio" aria-label="Projectes"></main>
+  <section class="seo-text" id="seo-text">
+    <h1>izan'studio · Izan, diseñador gráfico en Vic (Barcelona)</h1>
+    <p>Holaaaaa, bienvenidos a mi portfolio. Intenta atrapar una estrella fugaz. Branding, dirección creativa y diseño editorial.</p>
+    <div class="seo-text-content"></div>
+  </section>
+  <div class="message-image" aria-hidden="true"></div>
+  <div class="shooting-star" aria-hidden="true"></div>
+    <div class="popup-overlay" aria-hidden="true">
+      <div class="popup" role="dialog" aria-modal="true"></div>
+    </div>
+    <div class="saved-projects" aria-label="Projectes guardats"></div>
+    <div class="saved-projects saved-info" aria-label="About me"></div>
+    <script src="projects.js"></script>
+    <script src="info.js"></script>
+  <script>
+    const starCount = 30;
+    const stars = [];
+
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement("img");
+      star.className = "star";
+      star.src = "star.png";
+      star.alt = "";
+      star.setAttribute("aria-hidden", "true");
+      document.body.appendChild(star);
+      stars.push(star);
+    }
+
+    function flashStar(star) {
+      const visibleTime = 500 + Math.random() * 1500;
+      const hiddenTime = 700 + Math.random() * 2800;
+      const fadeTime = 500 + Math.random() * 1000;
+      const margin = 48;
+      const x = margin + Math.random() * (window.innerWidth - margin * 2);
+      const y = margin + Math.random() * (window.innerHeight - margin * 2);
+      const size = 5 + Math.random() * 30;
+
+      star.style.transitionDuration = `${fadeTime}ms, ${fadeTime}ms`;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = `${x}px`;
+      star.style.top = `${y}px`;
+      star.classList.add("is-visible");
+
+      setTimeout(() => {
+        star.classList.remove("is-visible");
+        setTimeout(() => flashStar(star), hiddenTime);
+      }, visibleTime);
+    }
+
+    stars.forEach((star) => {
+      setTimeout(() => flashStar(star), 500 + Math.random() * 2200);
+    });
+
+    const shootingStars = [document.querySelector(".shooting-star")];
+    const messageImage = document.querySelector(".message-image");
+    const messageImages = {
+      ca: "message-cat.png",
+      es: "message-esp.png",
+      en: "message-eng.png"
+    };
+
+    for (let i = 1; i < 3; i++) {
+      const shootingStar = document.createElement("div");
+      shootingStar.className = "shooting-star";
+      shootingStar.setAttribute("aria-hidden", "true");
+      document.body.appendChild(shootingStar);
+      shootingStars.push(shootingStar);
+    }
+
+    ["contact", "about"].forEach((panel) => {
+      const shootingStar = document.createElement("div");
+      shootingStar.className = "shooting-star contrast";
+      shootingStar.dataset.panel = panel;
+      shootingStar.setAttribute("aria-hidden", "true");
+      document.body.appendChild(shootingStar);
+      shootingStars.push(shootingStar);
+    });
+
+    const decorativeShootingStars = [];
+
+    for (let i = 0; i < 4; i++) {
+      const shootingStar = document.createElement("div");
+      shootingStar.className = "shooting-star decorative";
+      shootingStar.setAttribute("aria-hidden", "true");
+      document.body.appendChild(shootingStar);
+      decorativeShootingStars.push(shootingStar);
+    }
+
+    function launchShootingStar(shootingStar, isDecorative = false) {
+      const angle = 34 + Math.random() * 10;
+      const slope = Math.tan((angle * Math.PI) / 180);
+      const startsFromTop = Math.random() > 0.5;
+      const startX = startsFromTop ? Math.random() * (window.innerWidth * 0.55) : -300;
+      const startY = startsFromTop ? -260 : -120 + Math.random() * 160;
+      const travel = isDecorative ? window.innerWidth + 420 : window.innerWidth + 700;
+      const endX = startX + travel;
+      const endY = startY + slope * travel;
+
+      shootingStar.style.setProperty("--shoot-start-x", `${startX}px`);
+      shootingStar.style.setProperty("--shoot-start-y", `${startY}px`);
+      shootingStar.style.setProperty("--shoot-angle", `${angle}deg`);
+      shootingStar.style.setProperty("--shoot-end-x", `${endX}px`);
+      shootingStar.style.setProperty("--shoot-end-y", `${endY}px`);
+      shootingStar.classList.remove("is-flying");
+      void shootingStar.offsetWidth;
+      shootingStar.classList.add("is-flying");
+
+      const delay = isDecorative ? 3600 + Math.random() * 4800 : 14500 + Math.random() * 2500;
+      setTimeout(() => launchShootingStar(shootingStar, isDecorative), delay);
+    }
+
+    shootingStars.forEach((shootingStar, index) => {
+      setTimeout(() => launchShootingStar(shootingStar), 800 + index * 3000);
+    });
+
+    decorativeShootingStars.forEach((shootingStar) => {
+      setTimeout(() => launchShootingStar(shootingStar, true), 1600 + Math.random() * 7000);
+    });
+
+      const popupOverlay = document.querySelector(".popup-overlay");
+      const popup = document.querySelector(".popup");
+      const savedProjects = document.querySelector(".saved-projects:not(.saved-info)");
+      const savedInfo = document.querySelector(".saved-info");
+      let currentProject = null;
+
+    function getRandomProject() {
+      const projects = window.projects || [];
+      const availableProjects = projects.filter((project) => !project.savedTab);
+      const projectPool = availableProjects.length > 0 ? availableProjects : projects;
+
+      return projectPool[Math.floor(Math.random() * projectPool.length)];
+    }
+
+      const labelCanvas = document.createElement("canvas");
+      labelCanvas.width = 24;
+      labelCanvas.height = 12;
+      const labelContext = labelCanvas.getContext("2d", { willReadFrequently: true });
+      let labelColorTimer = null;
+
+      function getMediaUnder(x, y) {
+        const items = popup.querySelectorAll(".popup-images img, .popup-images video");
+        return [...items].find((item) => {
+          const rect = item.getBoundingClientRect();
+          return y >= rect.top && y <= rect.bottom && x >= rect.left && x <= rect.right;
+        });
+      }
+
+      function getBrightnessBehind(label) {
+        const box = label.getBoundingClientRect();
+        const media = getMediaUnder(box.left + box.width / 2, box.top + box.height / 2);
+
+        if (!media) {
+          return null;
+        }
+
+        const naturalWidth = media.naturalWidth || media.videoWidth;
+        const naturalHeight = media.naturalHeight || media.videoHeight;
+
+        if (!naturalWidth || !naturalHeight) {
+          return null;
+        }
+
+        const rect = media.getBoundingClientRect();
+        const scale = Math.max(rect.width / naturalWidth, rect.height / naturalHeight);
+        const offsetX = (rect.width - naturalWidth * scale) / 2;
+        const offsetY = (rect.height - naturalHeight * scale) / 2;
+        const sourceX = (box.left - rect.left - offsetX) / scale;
+        const sourceY = (box.top - rect.top - offsetY) / scale;
+
+        labelContext.drawImage(media, sourceX, sourceY, box.width / scale, box.height / scale, 0, 0, labelCanvas.width, labelCanvas.height);
+        const pixels = labelContext.getImageData(0, 0, labelCanvas.width, labelCanvas.height).data;
+        let total = 0;
+
+        for (let i = 0; i < pixels.length; i += 4) {
+          total += 0.2126 * pixels[i] + 0.7152 * pixels[i + 1] + 0.0722 * pixels[i + 2];
+        }
+
+        return total / (pixels.length / 4) / 255;
+      }
+
+      function enableBlendLabels(popupMedia) {
+        if (popupMedia.classList.contains("use-blend")) {
+          return;
+        }
+
+        popupMedia.classList.add("use-blend");
+        // Capes que converteixen el fons de sota la lletra en blanc o negre pur
+        const layers = [["#808080", "saturation"]];
+
+        for (let i = 0; i < 6; i++) {
+          layers.push(["#cccccc", "color-burn"], ["#333333", "color-dodge"]);
+        }
+
+        popupMedia.querySelectorAll(".popup-save, .popup-scroll-hint").forEach((label) => {
+          layers.forEach(([color, blend]) => {
+            const copy = label.cloneNode(true);
+            copy.classList.add("popup-label-layer");
+            copy.classList.remove("on-light", "on-dark");
+            copy.style.color = color;
+            copy.style.mixBlendMode = blend;
+            copy.setAttribute("aria-hidden", "true");
+            copy.tabIndex = -1;
+            label.before(copy);
+          });
+        });
+      }
+
+      function updatePopupLabelColors() {
+        const popupMedia = popup.querySelector(".popup-media");
+
+        if (!popupMedia || popupMedia.classList.contains("use-blend")) {
+          return;
+        }
+
+        popupMedia.querySelectorAll(".popup-save, .popup-scroll-hint").forEach((label) => {
+          try {
+            const brightness = getBrightnessBehind(label);
+
+            if (brightness === null) {
+              return;
+            }
+
+            label.classList.toggle("on-light", brightness > 0.55);
+            label.classList.toggle("on-dark", brightness <= 0.55);
+          } catch (error) {
+            enableBlendLabels(popupMedia);
+          }
+        });
+      }
+
+      function startPopupLabelColors() {
+        clearInterval(labelColorTimer);
+        updatePopupLabelColors();
+        labelColorTimer = setInterval(updatePopupLabelColors, 200);
+      }
+
+      function stopPopupLabelColors() {
+        clearInterval(labelColorTimer);
+      }
+
+      // Vídeos: només es reprodueixen els que es veuen a la pantalla
+      function watchVideos(videos, root, canPlay) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            entry.target.isOnScreen = entry.isIntersecting;
+            updateVideo(entry.target, canPlay);
+          });
+        }, { root, threshold: 0.15 });
+
+        videos.forEach((video) => observer.observe(video));
+        return observer;
+      }
+
+      function updateVideo(video, canPlay) {
+        if (video.isOnScreen && canPlay()) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      }
+
+      let popupVideoObserver = null;
+      let boringVideoObserver = null;
+      const popupIsOpen = () => popupOverlay.classList.contains("is-open");
+      const boringIsVisible = () => document.body.classList.contains("is-boring");
+
+      function watchPopupVideos() {
+        popupVideoObserver?.disconnect();
+        const popupImages = popup.querySelector(".popup-images");
+        popupVideoObserver = watchVideos(popup.querySelectorAll(".popup-images video"), popupImages, popupIsOpen);
+      }
+
+      function closeProjectPopup() {
+        popup.querySelectorAll("video").forEach((video) => video.pause());
+        popupVideoObserver?.disconnect();
+        stopPopupLabelColors();
+        popupOverlay.classList.remove("is-open");
+        popupOverlay.setAttribute("aria-hidden", "true");
+        setPageProject(null);
+      }
+
+      function getProjectText(project) {
+        const lang = document.documentElement.lang;
+        return project?.text?.[lang] || project?.text?.ca || project || {};
+      }
+
+      const medalIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2l3 6M16 2l-3 6"/><circle cx="12" cy="15" r="6"/><path d="M12 12.5l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2-1.45-1.4 2-.3z" fill="currentColor" stroke="none"/></svg>`;
+
+      // Descripcions: una línia en blanc (\n\n) separa paràgrafs; \n sol fa un salt de línia.
+      // També s'accepta una llista: description: ["Paràgraf 1", "Paràgraf 2"]
+      function formatDescription(description = "") {
+        const paragraphs = Array.isArray(description)
+          ? description
+          : String(description).split(/\n\s*\n/);
+
+        return paragraphs
+          .map((paragraph) => `<p>${String(paragraph).trim().replace(/\n/g, "<br>")}</p>`)
+          .join("");
+      }
+
+      // Missatge quan ja has atrapat i guardat tots els projectes
+      const allCaughtMessages = {
+        ca: "De moment no he currat tant, pròximament més projectes.",
+        es: "De momento no he currado tanto, próximamente más proyectos.",
+        en: "Haven't been working that hard yet, more projects coming soon."
+      };
+
+      function openAllCaughtPopup() {
+        setPageProject(null);
+        currentProject = null;
+        const lang = document.documentElement.lang;
+        const closeLabels = {
+          ca: "tancar",
+          es: "cerrar",
+          en: "close"
+        };
+        const closeLabel = closeLabels[lang] || "tancar";
+
+        popup.classList.add("popup--text-only", "popup--message");
+        popup.innerHTML = `
+          <div class="popup-content">
+            <div class="popup-meta">
+              <span></span>
+              <span>izan'studio</span>
+            </div>
+            <h2>${allCaughtMessages[lang] || allCaughtMessages.ca}</h2>
+            <div class="popup-actions">
+              <span></span>
+              <button class="popup-close" type="button" aria-label="${closeLabel}">${closeLabel}</button>
+            </div>
+          </div>
+        `;
+
+        popupOverlay.classList.add("is-open");
+        popupOverlay.setAttribute("aria-hidden", "false");
+      }
+
+      function getContactLinks(links = {}) {
+        const instagram = String(links.instagram || "").replace(/^@/, "");
+        const whatsapp = String(links.whatsapp || "").replace(/[^0-9]/g, "");
+
+        return `
+          <div class="contact-links">
+            <a href="${links.email ? `mailto:${links.email}` : "#"}">mail</a>
+            <a href="${instagram ? `https://www.instagram.com/${instagram}/` : "#"}" target="_blank" rel="noopener">instagram</a>
+            <a href="${whatsapp ? `https://wa.me/${whatsapp}` : "#"}" target="_blank" rel="noopener">whatsapp</a>
+          </div>
+        `;
+      }
+
+      // Text alternatiu de les fotos (per a Google i lectors de pantalla).
+      // Automàtic: "Projecte – categoria – imatge 2". Per posar-ne un de concret a una foto,
+      // a projects.js escriu-la així: { src: "media/3_Foto_1.webp", alt: "La teva descripció" }
+      const imageWordLabels = { ca: "imatge", es: "imagen", en: "image" };
+      const aboutAltLabels = {
+        ca: "Izan, dissenyador gràfic a Vic (Barcelona)",
+        es: "Izan, diseñador gráfico en Vic (Barcelona)",
+        en: "Izan, graphic designer in Vic (Barcelona)"
+      };
+
+      function getMediaSrc(entry) {
+        return entry && typeof entry === "object" ? entry.src || "" : entry || "";
+      }
+
+      function getAutoAlt(item, number) {
+        const lang = document.documentElement.lang;
+        const imageWord = imageWordLabels[lang] || imageWordLabels.ca;
+
+        if (item === window.infoPanels?.about) {
+          return `${aboutAltLabels[lang] || aboutAltLabels.ca} – ${imageWord} ${number}`;
+        }
+
+        const text = getProjectText(item);
+        return [text.title, text.category, `${imageWord} ${number}`].filter(Boolean).join(" – ");
+      }
+
+      function getMediaAlt(item, entry, number) {
+        const customAlt = entry && typeof entry === "object" ? entry.alt : "";
+        return seoEscape(customAlt || getAutoAlt(item, number));
+      }
+
+      function getMediaMarkup(item) {
+        const media = item.media || item.images || [];
+        let imageNumber = 0;
+
+        return media.map((entry) => {
+          const file = getMediaSrc(entry);
+          const isVideo = /\.(mp4|webm|mov)$/i.test(file);
+
+          if (isVideo) {
+            return `<video src="${file}" muted loop playsinline preload="metadata"></video>`;
+          }
+
+          imageNumber += 1;
+          return `<img src="${file}" alt="${getMediaAlt(item, entry, imageNumber)}">`;
+        }).join("");
+      }
+
+      function getSaveLabel() {
+        const saveLabels = {
+          ca: "guardar",
+          es: "guardar",
+          en: "save"
+        };
+        return saveLabels[document.documentElement.lang] || "guardar";
+      }
+
+      // Guarda el popup obert: els projectes van a la dreta i "about me" a l'esquerra
+      function saveCurrentProject() {
+        if (!currentProject || currentProject.savedTab) {
+          closeProjectPopup();
+          return;
+        }
+
+        const savedItem = currentProject;
+        const isInfo = Boolean(savedItem.infoKey);
+        const itemText = getProjectText(savedItem);
+        const removeLabels = {
+          ca: "treure",
+          es: "quitar",
+          en: "remove"
+        };
+        const tab = document.createElement("div");
+        tab.className = "saved-project-tab";
+        const removeButton = document.createElement("button");
+        removeButton.className = "saved-project-remove";
+        removeButton.type = "button";
+        removeButton.innerHTML = "<span>×</span>";
+        removeButton.setAttribute("aria-label", removeLabels[document.documentElement.lang] || "treure");
+        const titleButton = document.createElement("button");
+        titleButton.className = "saved-project-title";
+        titleButton.type = "button";
+        titleButton.textContent = itemText.title || "projecte";
+        titleButton.addEventListener("click", () => {
+          if (isInfo) {
+            openInfoPopup(savedItem.infoKey);
+          } else {
+            openProjectPopup(savedItem);
+          }
+        });
+        removeButton.addEventListener("click", () => {
+          tab.remove();
+          savedItem.savedTab = null;
+        });
+        tab.append(removeButton);
+
+        // Si el projecte té premi, la pestanya porta una medalla a l'esquerra
+        if (itemText.award) {
+          const award = document.createElement("span");
+          award.className = "saved-project-award";
+          award.innerHTML = medalIcon;
+          award.title = itemText.award;
+          tab.append(award);
+        }
+
+        tab.append(titleButton);
+        (isInfo ? savedInfo : savedProjects).appendChild(tab);
+        savedItem.savedTab = tab;
+        closeProjectPopup();
+      }
+
+      function updateSavedProjectTabs() {
+        const items = [...(window.projects || []), ...Object.values(window.infoPanels || {})];
+
+        items.forEach((item) => {
+          if (!item.savedTab) {
+            return;
+          }
+
+          const itemText = getProjectText(item);
+          item.savedTab.querySelector(".saved-project-title").textContent = itemText.title || "projecte";
+          const award = item.savedTab.querySelector(".saved-project-award");
+
+          if (award) {
+            award.title = itemText.award || "";
+          }
+        });
+      }
+
+      function openProjectPopup(project = getRandomProject()) {
+        currentProject = project;
+        popup.classList.remove("popup--text-only", "popup--message");
+        const projectText = getProjectText(project);
+        const saveLabel = getSaveLabel();
+        const closeLabels = {
+          ca: "tancar",
+          es: "cerrar",
+          en: "close"
+        };
+        const closeLabel = closeLabels[document.documentElement.lang] || "tancar";
+
+        if (!project) {
+          return;
+      }
+
+      setPageProject(project);
+      const mediaMarkup = getMediaMarkup(project);
+
+      popup.innerHTML = `
+          <div class="popup-media">
+            <div class="popup-images">
+              ${mediaMarkup}
+            </div>
+            <button class="popup-save" type="button">${saveLabel}</button>
+            <span class="popup-scroll-hint" aria-hidden="true">scroll ↓</span>
+          </div>
+          <div class="popup-content">
+            <div class="popup-meta">
+              <span>${projectText.category}</span>
+              <span>${project.year}</span>
+            </div>
+            ${projectText.award ? `<div class="popup-award">${medalIcon}<span>${projectText.award}</span></div>` : ""}
+            <h2>${projectText.title}</h2>
+            ${formatDescription(projectText.description)}
+            <div class="popup-actions">
+              <span></span>
+              <button class="popup-close" type="button" aria-label="${closeLabel}">${closeLabel}</button>
+            </div>
+          </div>
+        `;
+
+      popupOverlay.classList.add("is-open");
+      popupOverlay.setAttribute("aria-hidden", "false");
+      startPopupLabelColors();
+      watchPopupVideos();
+    }
+
+      function openInfoPopup(panel) {
+        setPageProject(null);
+        const panelData = (window.infoPanels || {})[panel];
+
+        if (!panelData) {
+          return;
+        }
+
+        panelData.infoKey = panel;
+        // "about me" sempre té la columna de fotos; contacte només si li poses fotos
+        const hasMedia = panel !== "contact" || (panelData.media || []).length > 0;
+        currentProject = panelData;
+        popup.classList.remove("popup--message");
+        popup.classList.toggle("popup--text-only", !hasMedia);
+        const lang = document.documentElement.lang;
+        const closeLabels = {
+          ca: "tancar",
+          es: "cerrar",
+          en: "close"
+        };
+        const closeLabel = closeLabels[lang] || "tancar";
+        const panelContent = getProjectText(panelData);
+        // Amb imatges, "guardar" va sobre les fotos; sense imatges, a baix a l'esquerra del text
+        const mediaButtons = hasMedia
+          ? `<button class="popup-save" type="button">${getSaveLabel()}</button>
+            <span class="popup-scroll-hint" aria-hidden="true">scroll ↓</span>`
+          : "";
+        const textSaveButton = hasMedia
+          ? "<span></span>"
+          : `<button class="popup-save" type="button">${getSaveLabel()}</button>`;
+
+        popup.innerHTML = `
+          <div class="popup-media">
+            <div class="popup-images">
+              ${getMediaMarkup(panelData)}
+            </div>
+            ${mediaButtons}
+          </div>
+          <div class="popup-content">
+            <div class="popup-meta">
+              <span>${panelContent.category}</span>
+              <span>izan'studio</span>
+            </div>
+            <h2>${panelContent.title}</h2>
+            ${formatDescription(panelContent.description)}
+            ${panel === "contact" ? getContactLinks(panelData.links) : ""}
+            <div class="popup-actions">
+              ${textSaveButton}
+              <button class="popup-close" type="button" aria-label="${closeLabel}">${closeLabel}</button>
+            </div>
+          </div>
+        `;
+
+        popupOverlay.classList.add("is-open");
+        popupOverlay.setAttribute("aria-hidden", "false");
+        startPopupLabelColors();
+        watchPopupVideos();
+      }
+
+      const boringPortfolio = document.querySelector(".boring-portfolio");
+
+      // Categories seleccionades al menú (buit = es veuen tots els projectes)
+      const activeCategories = new Set();
+      const allLabels = { ca: "tot", es: "todo", en: "all" };
+
+      // "Editorial, Creative Direction" -> ["Editorial", "Creative Direction"]
+      function getProjectCategories(project) {
+        return String(getProjectText(project).category || "")
+          .split(/\s*[,·|\/]\s*/)
+          .map((category) => category.trim())
+          .filter(Boolean);
+      }
+
+      function applyCategoryFilter() {
+        const projects = window.projects || [];
+
+        boringPortfolio.querySelectorAll(".boring-project").forEach((card) => {
+          const project = projects[Number(card.dataset.projectIndex)];
+          const matches = activeCategories.size === 0
+            || getProjectCategories(project).some((category) => activeCategories.has(category));
+          card.hidden = !matches;
+        });
+
+        boringPortfolio.querySelectorAll("[data-category]").forEach((button) => {
+          const category = button.dataset.category;
+          button.classList.toggle("is-active", category ? activeCategories.has(category) : activeCategories.size === 0);
+        });
+      }
+
+      function renderBoringPortfolio() {
+        const projects = window.projects || [];
+        const lang = document.documentElement.lang;
+        const categories = [...new Set(projects.flatMap(getProjectCategories))];
+        const infoPanels = window.infoPanels || {};
+        const infoLabel = (key, fallback) => getProjectText(infoPanels[key] || {}).title || fallback;
+
+        // Si en canviar d'idioma una categoria ja no existeix, es deixa de filtrar per ella
+        activeCategories.forEach((category) => {
+          if (!categories.includes(category)) {
+            activeCategories.delete(category);
+          }
+        });
+
+        boringPortfolio.innerHTML = `
+          <div class="boring-menu">
+            <div class="boring-menu-group">
+              <button type="button" data-info="about">${infoLabel("about", "about me")}</button>
+              <button type="button" data-info="contact">${infoLabel("contact", "contacte")}</button>
+            </div>
+            <div class="boring-menu-group">
+              <button type="button" data-category="">${allLabels[lang] || "tot"}</button>
+              ${categories.map((category) => `<button type="button" data-category="${category}">${category}</button>`).join("")}
+            </div>
+          </div>
+          <div class="boring-grid">
+            ${projects.map((project, index) => {
+              const projectText = getProjectText(project);
+              const firstMedia = (project.media || project.images || [])[0];
+              const file = getMediaSrc(firstMedia);
+              const isVideo = /\.(mp4|webm|mov)$/i.test(file || "");
+              const media = file
+                ? isVideo
+                  ? `<video src="${file}" muted loop playsinline preload="metadata"></video>`
+                  : `<img src="${file}" alt="${getMediaAlt(project, firstMedia, 1)}">`
+                : "";
+
+              return `
+                <button class="boring-project" type="button" data-project-index="${index}">
+                  <span class="boring-project-media">${media}</span>
+                  <span class="boring-project-info">
+                    <span>${projectText.title || "projecte"}</span>
+                    <span>${project.year || ""}</span>
+                  </span>
+                </button>
+              `;
+            }).join("")}
+          </div>
+        `;
+
+        applyCategoryFilter();
+        boringVideoObserver?.disconnect();
+        boringVideoObserver = watchVideos(boringPortfolio.querySelectorAll("video"), boringPortfolio, boringIsVisible);
+      }
+
+      boringPortfolio.addEventListener("click", (event) => {
+        const infoButton = event.target.closest("[data-info]");
+
+        if (infoButton) {
+          openInfoPopup(infoButton.dataset.info);
+          return;
+        }
+
+        const categoryButton = event.target.closest("[data-category]");
+
+        if (!categoryButton) {
+          return;
+        }
+
+        const category = categoryButton.dataset.category;
+
+        if (!category) {
+          activeCategories.clear();
+        } else if (activeCategories.has(category)) {
+          activeCategories.delete(category);
+        } else {
+          activeCategories.add(category);
+        }
+
+        applyCategoryFilter();
+        boringPortfolio.scrollTop = 0;
+      });
+
+      function setWebsiteMode(mode) {
+        const isBoring = mode === "boring";
+        document.body.classList.toggle("is-boring", isBoring);
+        document.querySelectorAll(".site-mode").forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.mode === mode);
+        });
+
+        if (isBoring) {
+          renderBoringPortfolio();
+        } else {
+          boringPortfolio.querySelectorAll("video").forEach((video) => video.pause());
+        }
+      }
+
+      renderBoringPortfolio();
+
+      document.querySelectorAll(".site-mode").forEach((button) => {
+        button.addEventListener("click", () => setWebsiteMode(button.dataset.mode));
+      });
+
+    document.addEventListener("click", (event) => {
+      const boringProject = event.target.closest(".boring-project");
+
+      if (boringProject) {
+        openProjectPopup((window.projects || [])[Number(boringProject.dataset.projectIndex)]);
+        return;
+      }
+
+      const shootingStar = event.target.closest(".shooting-star:not(.decorative)");
+
+      if (shootingStar?.dataset.panel) {
+        openInfoPopup(shootingStar.dataset.panel);
+        return;
+      }
+
+      if (shootingStar) {
+        const projects = window.projects || [];
+        const allSaved = projects.length > 0 && projects.every((project) => project.savedTab);
+
+        if (allSaved) {
+          openAllCaughtPopup();
+        } else {
+          openProjectPopup();
+        }
+      }
+    });
+
+    document.addEventListener("pointerover", (event) => {
+      const shootingStar = event.target.closest(".shooting-star:not(.decorative)");
+
+      if (!shootingStar || shootingStar.contains(event.relatedTarget)) {
+        return;
+      }
+
+      shootingStar.getAnimations().forEach((animation) => {
+        animation.playbackRate = 0.35;
+      });
+    });
+
+    document.addEventListener("pointerout", (event) => {
+      const shootingStar = event.target.closest(".shooting-star:not(.decorative)");
+
+      if (!shootingStar || shootingStar.contains(event.relatedTarget)) {
+        return;
+      }
+
+      shootingStar.getAnimations().forEach((animation) => {
+        animation.playbackRate = 1;
+      });
+    });
+
+      // La tecla Esc tanca el popup
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && popupIsOpen()) {
+          closeProjectPopup();
+        }
+      });
+
+      popupOverlay.addEventListener("click", (event) => {
+        if (event.target === popupOverlay) {
+          closeProjectPopup();
+        }
+
+        if (event.target.closest(".popup-close")) {
+          closeProjectPopup();
+        }
+
+        if (event.target.closest(".popup-save")) {
+          saveCurrentProject();
+        }
+      });
+
+      popupOverlay.addEventListener("wheel", (event) => {
+        if (!popupOverlay.classList.contains("is-open")) {
+          return;
+        }
+
+        const popupImages = popup.querySelector(".popup-images");
+
+        if (!popupImages) {
+          return;
+        }
+
+        event.preventDefault();
+        popupImages.scrollTop += event.deltaY;
+      }, { passive: false });
+
+      const backgroundToggle = document.querySelector(".background-toggle");
+      const siteModeLabels = {
+        ca: {
+          boring: "web per avorrits",
+          fun: "web per divertits"
+        },
+        es: {
+          boring: "web para aburridos",
+          fun: "web para divertidos"
+        },
+        en: {
+          boring: "web for boring people",
+          fun: "web for fun people"
+        }
+      };
+
+      function updateSiteModeLabels() {
+        const labels = siteModeLabels[document.documentElement.lang] || siteModeLabels.ca;
+
+        document.querySelectorAll(".site-mode").forEach((button) => {
+          button.textContent = labels[button.dataset.mode];
+        });
+      }
+
+    // Mode clar/fosc inicial: el del sistema del visitant. Si clica el botó, mana el botó.
+    const lightSchemeQuery = window.matchMedia("(prefers-color-scheme: light)");
+    let userChoseTheme = false;
+
+    function setLightMode(isLight) {
+      document.body.classList.toggle("is-light", isLight);
+      backgroundToggle.setAttribute("aria-pressed", isLight);
+    }
+
+    setLightMode(lightSchemeQuery.matches);
+
+    lightSchemeQuery.addEventListener("change", (event) => {
+      if (!userChoseTheme) {
+        setLightMode(event.matches);
+      }
+    });
+
+    backgroundToggle.addEventListener("click", () => {
+      userChoseTheme = true;
+      setLightMode(!document.body.classList.contains("is-light"));
+    });
+
+    const languages = ["ca", "es", "en"];
+    const interfaceLabels = {
+      ca: { toggle: "Canviar fons", nav: "Idiomes", modes: "Modes de la web", projects: "Projectes", saved: "Projectes guardats" },
+      es: { toggle: "Cambiar fondo", nav: "Idiomas", modes: "Modos de la web", projects: "Proyectos", saved: "Proyectos guardados" },
+      en: { toggle: "Change background", nav: "Languages", modes: "Website modes", projects: "Projects", saved: "Saved projects" }
+    };
+
+    // Idioma: el de l'adreça (?lang=ca / ?lang=en). Sense res, castellà.
+    // És fix a propòsit: cada adreça té sempre el mateix idioma i així Google les indexa bé.
+    const defaultLanguage = "es";
+
+    function getInitialLanguage() {
+      const fromUrl = new URLSearchParams(location.search).get("lang");
+      return languages.includes(fromUrl) ? fromUrl : defaultLanguage;
+    }
+
+    function setLanguage(lang, animate = true) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.classList.toggle("active", link.lang === lang);
+      });
+
+      const labels = interfaceLabels[lang];
+      backgroundToggle.setAttribute("aria-label", labels.toggle);
+      document.querySelector("nav").setAttribute("aria-label", labels.nav);
+      document.querySelector(".site-modes").setAttribute("aria-label", labels.modes);
+      boringPortfolio.setAttribute("aria-label", labels.projects);
+      savedProjects.setAttribute("aria-label", labels.saved);
+
+      updateSeo(lang);
+      updateSavedProjectTabs();
+      updateSiteModeLabels();
+      renderBoringPortfolio();
+
+      if (!animate) {
+        messageImage.style.backgroundImage = `url("${messageImages[lang]}")`;
+        return;
+      }
+
+      messageImage.classList.add("is-changing");
+      setTimeout(() => {
+        messageImage.style.backgroundImage = `url("${messageImages[lang]}")`;
+        messageImage.classList.remove("is-changing");
+      }, 520);
+    }
+
+    document.querySelectorAll("nav a").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (link.classList.contains("active")) {
+          return;
+        }
+
+        setLanguage(link.lang);
+        history.pushState({}, "", buildPageUrl(link.lang, currentPageProject));
+      });
+    });
+
+    // ---- Una adreça per a cada projecte: ?p=fatta (i &lang=ca / &lang=en) ----
+    // L'adreça surt del títol en català. Si la vols diferent, posa slug: "el-que-vulguis" al projecte de projects.js.
+    let currentPageProject = null;
+
+    function getProjectSlug(project) {
+      const title = project?.slug || project?.text?.ca?.title || project?.text?.es?.title || "";
+      return String(title)
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function findProjectBySlug(slug) {
+      return (window.projects || []).find((project) => getProjectSlug(project) === slug) || null;
+    }
+
+    function buildPageUrl(lang, project, absolute = false) {
+      const params = new URLSearchParams();
+      if (project) params.set("p", getProjectSlug(project));
+      if (lang !== defaultLanguage) params.set("lang", lang);
+      const query = params.toString();
+      const path = absolute ? location.origin + location.pathname : location.pathname;
+      return query ? `${path}?${query}` : path;
+    }
+
+    function setPageProject(project, updateHistory = true) {
+      if (project === currentPageProject) return;
+      const hadProject = Boolean(currentPageProject);
+      currentPageProject = project;
+      const lang = document.documentElement.lang;
+
+      if (updateHistory) {
+        const url = buildPageUrl(lang, project);
+        // Obrir un projecte afegeix un pas a l'historial (el botó enrere el tanca); la resta el substitueix
+        if (project && !hadProject) history.pushState({}, "", url);
+        else history.replaceState({}, "", url);
+      }
+
+      updateSeo(lang);
+    }
+
+    function shortText(description = "", max = 155) {
+      const text = (Array.isArray(description) ? description.join(" ") : String(description)).replace(/\s+/g, " ").trim();
+      if (text.length <= max) return text;
+      return text.slice(0, max).replace(/\s+\S*$/, "") + "…";
+    }
+
+    // ---- SEO: títol, descripció i text amagat en l'idioma actiu ----
+    const seoTexts = {
+      ca: {
+        title: "izan'studio · Dissenyador gràfic a Vic (Barcelona) | Branding i editorial",
+        description: "Portfoli d'Izan, dissenyador gràfic a Vic (Barcelona) especialitzat en branding, direcció creativa i disseny editorial.",
+        h1: "izan'studio · Izan, dissenyador gràfic a Vic (Barcelona)",
+        intro: "Holaaaaa, benvinguts al meu portfoli. Intenta atrapar una estrella fugaç. Branding, direcció creativa i disseny editorial.",
+        projects: "Projectes"
+      },
+      es: {
+        title: "izan'studio · Diseñador gráfico en Vic (Barcelona) | Branding y editorial",
+        description: "Portfolio de Izan, diseñador gráfico en Vic (Barcelona) especializado en branding, dirección creativa y diseño editorial.",
+        h1: "izan'studio · Izan, diseñador gráfico en Vic (Barcelona)",
+        intro: "Holaaaaa, bienvenidos a mi portfolio. Intenta atrapar una estrella fugaz. Branding, dirección creativa y diseño editorial.",
+        projects: "Proyectos"
+      },
+      en: {
+        title: "izan'studio · Graphic designer in Vic (Barcelona) | Branding & editorial",
+        description: "Portfolio of Izan, a graphic designer based in Vic (Barcelona) specialising in branding, creative direction and editorial design.",
+        h1: "izan'studio · Izan, graphic designer in Vic (Barcelona)",
+        intro: "Hellooooo, welcome to my portfolio. Try to catch a shooting star. Branding, creative direction and editorial design.",
+        projects: "Projects"
+      }
+    };
+
+    function seoEscape(value = "") {
+      return String(value).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    }
+
+    function seoParagraphs(description = "") {
+      const parts = Array.isArray(description) ? description : String(description).split(/\n\s*\n/);
+      return parts.map((part) => `<p>${seoEscape(String(part).trim())}</p>`).join("");
+    }
+
+    function setMeta(selector, attributes) {
+      let element = document.head.querySelector(selector);
+      if (!element) {
+        element = document.createElement(attributes.rel ? "link" : "meta");
+        document.head.appendChild(element);
+      }
+      Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, value));
+    }
+
+    function updateSeo(lang) {
+      const seo = seoTexts[lang] || seoTexts.ca;
+      const pageProject = currentPageProject;
+
+      if (pageProject) {
+        const text = pageProject.text?.[lang] || pageProject.text?.ca || {};
+        document.title = `${text.title} · ${text.category} | izan'studio`;
+        setMeta('meta[name="description"]', { name: "description", content: shortText(text.description) || seo.description });
+      } else {
+        document.title = seo.title;
+        setMeta('meta[name="description"]', { name: "description", content: seo.description });
+      }
+
+      // Una adreça per idioma (castellà sense ?lang) i per projecte (?p=...)
+      const urlFor = (code) => buildPageUrl(code, pageProject, true);
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.setAttribute("href", buildPageUrl(link.lang, pageProject));
+      });
+      setMeta('link[rel="canonical"]', { rel: "canonical", href: urlFor(lang) });
+      languages.forEach((code) => {
+        setMeta(`link[hreflang="${code}"]`, { rel: "alternate", hreflang: code, href: urlFor(code) });
+      });
+      setMeta('link[hreflang="x-default"]', { rel: "alternate", hreflang: "x-default", href: urlFor(defaultLanguage) });
+
+      const section = document.getElementById("seo-text");
+      section.querySelector("h1").textContent = seo.h1;
+      section.querySelector("p").textContent = seo.intro;
+
+      const projectsMarkup = (window.projects || []).map((project) => {
+        const text = project.text?.[lang] || project.text?.ca || {};
+        return `
+          <article>
+            <h3><a href="${buildPageUrl(lang, project)}">${seoEscape(text.title)}</a></h3>
+            <p>${seoEscape([text.category, project.year, text.award].filter(Boolean).join(" · "))}</p>
+            ${seoParagraphs(text.description)}
+          </article>`;
+      }).join("");
+
+      const infoMarkup = ["about", "contact"].map((key) => {
+        const panel = window.infoPanels?.[key];
+        const text = panel?.text?.[lang] || panel?.text?.ca;
+        return text ? `<h2>${seoEscape(text.title)}</h2>${seoParagraphs(text.description)}` : "";
+      }).join("");
+
+      section.querySelector(".seo-text-content").innerHTML =
+        `<h2>${seo.projects}</h2>${projectsMarkup}${infoMarkup}`;
+    }
+
+    function applyUrlProject() {
+      const project = findProjectBySlug(new URLSearchParams(location.search).get("p"));
+      if (project) {
+        currentPageProject = project; // ja és a l'adreça: no tocar l'historial
+        openProjectPopup(project);
+      } else if (currentPageProject) {
+        currentPageProject = null;
+        closeProjectPopup();
+      }
+      updateSeo(document.documentElement.lang);
+    }
+
+    window.addEventListener("popstate", () => {
+      setLanguage(getInitialLanguage());
+      applyUrlProject();
+    });
+
+    setLanguage(getInitialLanguage(), false);
+    applyUrlProject();
+
+  </script>
+</body>
+
+</html>
