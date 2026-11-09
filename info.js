@@ -2,7 +2,7 @@
 // A "media" hi poses les fotos o vídeos de l'esquerra, en ordre (igual que a projects.js).
 window.infoPanels = {
   about: {
-    media: ["media/Aboutme_2.webp","media/Aboutme_3.webp","media/Aboutme_4.webp","media/Aboutme_5.webp","media/Aboutme_6.webp"],
+    media: ["media/gemini.webp","media/Aboutme_3.webp","media/Aboutme_4.webp","media/Aboutme_5.webp","media/Aboutme_6.webp"],
     text: {
       ca: {
         title: "about me",

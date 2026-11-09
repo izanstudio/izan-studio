@@ -220,6 +220,53 @@
       background: #fff;
     }
 
+    .boring-categories {
+      position: relative;
+    }
+
+    .category-toggle {
+      display: none;
+    }
+
+    /* Mòbil: categories en desplegable, a la mateixa línia que about/contacte */
+    @media (max-width: 760px) {
+      .category-toggle {
+        display: block;
+        color: #3b00db !important;
+      }
+
+      .boring-categories .boring-menu-group {
+        display: none;
+      }
+
+      /* Obert: les categories ocupen una línia sencera a sota del menú */
+      .boring-categories {
+        display: contents;
+      }
+
+      .boring-menu {
+        flex-wrap: wrap;
+        row-gap: 12px;
+      }
+
+      .category-toggle {
+        margin-left: auto;
+      }
+
+      .boring-categories.is-open .boring-menu-group {
+        display: flex;
+        flex-basis: 100%;
+        flex-wrap: wrap;
+        gap: 8px 22px;
+      }
+
+      /* La categoria triada ja surt a dalt, no cal repetir-la a la llista */
+      .boring-categories .boring-menu-group .is-active {
+        display: none;
+      }
+    }
+
+
     .boring-project[hidden] {
       display: none;
     }
@@ -502,6 +549,50 @@
       }
     }
 
+    .shooting-star {
+      will-change: transform, opacity;
+    }
+
+    /* Mentre hi ha un popup obert, les estrelles fugaces de darrere s'aturen */
+    body:has(.popup-overlay.is-open) .shooting-star,
+    body:has(.popup-overlay.is-open) .shooting-star::before {
+      animation-play-state: paused;
+    }
+
+    /* Mòbil: efectes més lleugers (la cua no canvia el desenfocament a cada fotograma) */
+    @keyframes trail-dance-lite {
+      0% {
+        opacity: 0.58;
+        transform: translateY(calc(-48% + 4px)) rotate(var(--shoot-angle)) scaleX(0.94) scaleY(0.82);
+      }
+
+      50% {
+        opacity: 0.95;
+        transform: translateY(calc(-56% + 4px)) rotate(var(--shoot-angle)) scaleX(1.05) scaleY(1.18);
+      }
+
+      100% {
+        opacity: 0.72;
+        transform: translateY(calc(-48% + 4px)) rotate(var(--shoot-angle)) scaleX(0.94) scaleY(0.82);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shooting-star::before {
+        filter: blur(2.5px);
+        animation-name: trail-dance-lite;
+        will-change: transform, opacity;
+      }
+
+      /* Estrelles que parpellegen: la brillantor és fixa i només es fa el fos */
+      .star,
+      .star.is-visible {
+        filter: drop-shadow(0 0 5px #3b00db);
+        transition-property: opacity;
+        will-change: opacity;
+      }
+    }
+
     @keyframes trail-dance {
       0% {
         opacity: 0.58;
@@ -609,8 +700,36 @@
     .popup-content {
       display: flex;
       flex-direction: column;
+      min-height: 0;
       padding: 18px;
+      overflow: hidden;
+      background: inherit;
     }
+
+    /* Text del popup: fa scroll ell sol i s'esvaeix suaument a baix,
+       així "guardar/tancar" queden sempre fixos i no es veuen trossos de línies tallades */
+    .popup-body {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      min-height: 0;
+      padding-bottom: 22px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 26px), transparent);
+      mask-image: linear-gradient(to bottom, #000 calc(100% - 26px), transparent);
+    }
+
+    .popup-body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .popup-content > .popup-actions {
+      flex: none;
+      margin-top: 0;
+      padding-top: 10px;
+    }
+
 
     .popup-meta {
       display: flex;
@@ -754,6 +873,11 @@
         text-align: left;
       }
 
+      /* A l'ordinador surt el nom; al mòbil, un número o una icona */
+      .saved-project-title .tab-short {
+        display: none;
+      }
+
       /* La creu surt per l'esquerra i fa la pestanya més ampla, sense moure el text */
       .saved-project-remove {
         position: absolute;
@@ -838,8 +962,56 @@
 
     /* Mòbil i pantalles estretes */
     @media (max-width: 760px) {
+      /* Estrelles fugaces més petites */
+      .shooting-star {
+        width: 170px;
+        height: 30px;
+      }
+
+      .shooting-star::before {
+        right: 14px;
+        width: 150px;
+        height: 10px;
+      }
+
+      .shooting-star::after {
+        width: 32px;
+        height: 32px;
+        filter: drop-shadow(0 0 12px #3b00db) drop-shadow(0 0 32px rgba(59, 0, 219, 0.9));
+      }
+
+      .shooting-star.decorative {
+        width: 100px;
+        height: 14px;
+      }
+
+      .shooting-star.decorative::before {
+        right: 8px;
+        width: 85px;
+        height: 3px;
+      }
+
+      .shooting-star.decorative::after {
+        width: 12px;
+        height: 12px;
+        filter: drop-shadow(0 0 6px #3b00db) drop-shadow(0 0 14px rgba(59, 0, 219, 0.8));
+      }
+
+      /* Idiomes: només es veu el seleccionat; en tocar-lo s'obren els altres a sota */
       nav {
-        gap: 16px;
+        top: 40px;
+        min-height: 0;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+      }
+
+      nav a.active {
+        order: -1;
+      }
+
+      nav:not(.is-open) a:not(.active) {
+        display: none;
       }
 
       .logo {
@@ -857,7 +1029,7 @@
       /* Popup: imatges a dalt, text a sota */
       .popup {
         grid-template-columns: 1fr;
-        grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
+        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
         /* Mida del popup al mòbil: més espai al voltant */
         width: calc(100vw - 72px);
         height: min(600px, calc(100dvh - 180px));
@@ -869,7 +1041,6 @@
 
       .popup-content {
         border-top: 0;
-        overflow-y: auto;
       }
 
       .popup h2 {
@@ -880,6 +1051,20 @@
       .boring-grid {
         grid-template-columns: 1fr;
         gap: 24px;
+      }
+    }
+
+    /* Mòbils baixets: el popup aprofita més l'alçada */
+    @media (max-width: 760px) and (max-height: 700px) {
+      .popup {
+        height: calc(100dvh - 120px);
+      }
+    }
+
+    /* Mòbil en horitzontal: el popup ocupa gairebé tota l'alçada */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .popup {
+        height: calc(100dvh - 32px);
       }
     }
 
@@ -935,7 +1120,7 @@
     }
 
     .popup.popup--text-only:not(.popup--message) .popup-actions {
-      margin-top: 32px;
+      margin-top: 0;
     }
 
     /* Popup petit de missatge (quan ja has atrapat tots els projectes) */
@@ -962,12 +1147,40 @@
         font-size: 11px;
       }
 
+      /* Mòbil: pestanyes compactes amb un número (projectes) o una icona (about me / contacte) */
+      .saved-projects {
+        justify-items: end;
+        gap: 6px;
+      }
+
+      .saved-info {
+        justify-items: start;
+      }
+
       .saved-project-title {
-        max-width: 96px;
-        padding: 5px 8px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 28px;
+        max-width: none;
+        height: 28px;
+        padding: 0;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      .saved-project-title .tab-name {
+        display: none;
+      }
+
+      .saved-project-title .tab-short {
+        display: flex;
+      }
+
+      .saved-project-title svg {
+        width: 13px;
+        height: 13px;
       }
 
       .saved-project-award {
@@ -1032,7 +1245,9 @@
     <script src="projects.js"></script>
     <script src="info.js"></script>
   <script>
-    const starCount = 30;
+    // Mòbil: menys elements animats perquè vagi fluid en mòbils menys potents
+    const isLiteMode = window.matchMedia("(max-width: 760px)").matches;
+    const starCount = isLiteMode ? 14 : 30;
     const stars = [];
 
     for (let i = 0; i < starCount; i++) {
@@ -1046,13 +1261,25 @@
     }
 
     function flashStar(star) {
+      // Si hi ha un popup obert o la web per avorrits, no cal que les estrelles treballin
+      const popupOpen = document.querySelector(".popup-overlay")?.classList.contains("is-open");
+
+      if (popupOpen || document.body.classList.contains("is-boring") || document.hidden) {
+        setTimeout(() => flashStar(star), 1500);
+        return;
+      }
+
       const visibleTime = 500 + Math.random() * 1500;
       const hiddenTime = 700 + Math.random() * 2800;
       const fadeTime = 500 + Math.random() * 1000;
       const margin = 48;
       const x = margin + Math.random() * (window.innerWidth - margin * 2);
       const y = margin + Math.random() * (window.innerHeight - margin * 2);
-      const size = 5 + Math.random() * 30;
+      // Al mòbil les estrelles són més petites
+      const sizeScale = window.matchMedia("(max-width: 760px)").matches ? 0.55 : 1;
+      const size = (5 + Math.random() * 30) * sizeScale;
+
+
 
       star.style.transitionDuration = `${fadeTime}ms, ${fadeTime}ms`;
       star.style.width = `${size}px`;
@@ -1098,7 +1325,7 @@
 
     const decorativeShootingStars = [];
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < (isLiteMode ? 2 : 4); i++) {
       const shootingStar = document.createElement("div");
       shootingStar.className = "shooting-star decorative";
       shootingStar.setAttribute("aria-hidden", "true");
@@ -1106,7 +1333,18 @@
       decorativeShootingStars.push(shootingStar);
     }
 
+    // Estrelles blanques (about me / contacte): si ja l'has guardat a l'esquerra, deixa de sortir
+    function isPanelSaved(panel) {
+      return Boolean(panel && window.infoPanels?.[panel]?.savedTab);
+    }
+
     function launchShootingStar(shootingStar, isDecorative = false) {
+      if (isPanelSaved(shootingStar.dataset.panel)) {
+        shootingStar.classList.remove("is-flying");
+        setTimeout(() => launchShootingStar(shootingStar, isDecorative), 3000);
+        return;
+      }
+
       const angle = 34 + Math.random() * 10;
       const slope = Math.tan((angle * Math.PI) / 180);
       const startsFromTop = Math.random() > 0.5;
@@ -1251,7 +1489,7 @@
       function startPopupLabelColors() {
         clearInterval(labelColorTimer);
         updatePopupLabelColors();
-        labelColorTimer = setInterval(updatePopupLabelColors, 200);
+        labelColorTimer = setInterval(updatePopupLabelColors, window.matchMedia("(max-width: 760px)").matches ? 450 : 200);
       }
 
       function stopPopupLabelColors() {
@@ -1351,6 +1589,7 @@
           </div>
         `;
 
+        wrapPopupBody();
         popupOverlay.classList.add("is-open");
         popupOverlay.setAttribute("aria-hidden", "false");
       }
@@ -1399,6 +1638,25 @@
         return seoEscape(customAlt || getAutoAlt(item, number));
       }
 
+      // Posa tot el text del popup (menys els botons de baix) dins d'una capsa que fa scroll
+      function wrapPopupBody() {
+        const content = popup.querySelector(".popup-content");
+
+        if (!content || content.querySelector(":scope > .popup-body")) {
+          return;
+        }
+
+        const body = document.createElement("div");
+        body.className = "popup-body";
+        const actions = content.querySelector(":scope > .popup-actions");
+        [...content.children].forEach((child) => {
+          if (child !== actions) {
+            body.appendChild(child);
+          }
+        });
+        content.insertBefore(body, actions);
+      }
+
       function getMediaMarkup(item) {
         const media = item.media || item.images || [];
         let imageNumber = 0;
@@ -1426,6 +1684,18 @@
       }
 
       // Guarda el popup obert: els projectes van a la dreta i "about me" a l'esquerra
+      const infoTabIcons = {
+        about: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>`,
+        contact: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2z"/></svg>`
+      };
+
+      // Els projectes guardats es numeren per ordre: 1, 2, 3...
+      function renumberSavedTabs() {
+        savedProjects.querySelectorAll(".saved-project-title .tab-short").forEach((label, index) => {
+          label.textContent = String(index + 1);
+        });
+      }
+
       function saveCurrentProject() {
         if (!currentProject || currentProject.savedTab) {
           closeProjectPopup();
@@ -1450,7 +1720,13 @@
         const titleButton = document.createElement("button");
         titleButton.className = "saved-project-title";
         titleButton.type = "button";
-        titleButton.textContent = itemText.title || "projecte";
+        // Ordinador: el nom. Mòbil: un número o una icona (el nom queda com a etiqueta)
+        titleButton.title = itemText.title || "projecte";
+        titleButton.setAttribute("aria-label", itemText.title || "projecte");
+
+        titleButton.innerHTML = `<span class="tab-name"></span><span class="tab-short">${isInfo ? infoTabIcons[savedItem.infoKey] || "" : ""}</span>`;
+        titleButton.querySelector(".tab-name").textContent = itemText.title || "projecte";
+
         titleButton.addEventListener("click", () => {
           if (isInfo) {
             openInfoPopup(savedItem.infoKey);
@@ -1461,6 +1737,7 @@
         removeButton.addEventListener("click", () => {
           tab.remove();
           savedItem.savedTab = null;
+          renumberSavedTabs();
         });
         tab.append(removeButton);
 
@@ -1475,7 +1752,13 @@
 
         tab.append(titleButton);
         (isInfo ? savedInfo : savedProjects).appendChild(tab);
+
+        // Si és about me o contacte, la seva estrella blanca desapareix ja
+        if (isInfo) {
+          document.querySelector(`.shooting-star[data-panel="${savedItem.infoKey}"]`)?.classList.remove("is-flying");
+        }
         savedItem.savedTab = tab;
+        renumberSavedTabs();
         closeProjectPopup();
       }
 
@@ -1488,7 +1771,10 @@
           }
 
           const itemText = getProjectText(item);
-          item.savedTab.querySelector(".saved-project-title").textContent = itemText.title || "projecte";
+          const titleButton = item.savedTab.querySelector(".saved-project-title");
+          titleButton.title = itemText.title || "projecte";
+          titleButton.setAttribute("aria-label", itemText.title || "projecte");
+          titleButton.querySelector(".tab-name").textContent = itemText.title || "projecte";
           const award = item.savedTab.querySelector(".saved-project-award");
 
           if (award) {
@@ -1539,7 +1825,8 @@
           </div>
         `;
 
-      popupOverlay.classList.add("is-open");
+      wrapPopupBody();
+        popupOverlay.classList.add("is-open");
       popupOverlay.setAttribute("aria-hidden", "false");
       startPopupLabelColors();
       watchPopupVideos();
@@ -1598,6 +1885,7 @@
           </div>
         `;
 
+        wrapPopupBody();
         popupOverlay.classList.add("is-open");
         popupOverlay.setAttribute("aria-hidden", "false");
         startPopupLabelColors();
@@ -1632,6 +1920,18 @@
           const category = button.dataset.category;
           button.classList.toggle("is-active", category ? activeCategories.has(category) : activeCategories.size === 0);
         });
+
+        // Text del desplegable del mòbil: "tot", "branding" o "branding +1"
+        const toggle = boringPortfolio.querySelector(".category-toggle");
+
+        if (toggle) {
+          const selected = [...activeCategories];
+          toggle.textContent = selected.length === 0
+            ? allLabels[document.documentElement.lang] || "tot"
+            : selected.length === 1
+              ? selected[0]
+              : `${selected[0]} +${selected.length - 1}`;
+        }
       }
 
       function renderBoringPortfolio() {
@@ -1654,9 +1954,12 @@
               <button type="button" data-info="about">${infoLabel("about", "about me")}</button>
               <button type="button" data-info="contact">${infoLabel("contact", "contacte")}</button>
             </div>
-            <div class="boring-menu-group">
-              <button type="button" data-category="">${allLabels[lang] || "tot"}</button>
-              ${categories.map((category) => `<button type="button" data-category="${category}">${category}</button>`).join("")}
+            <div class="boring-categories">
+              <button class="category-toggle" type="button"></button>
+              <div class="boring-menu-group">
+                <button type="button" data-category="">${allLabels[lang] || "tot"}</button>
+                ${categories.map((category) => `<button type="button" data-category="${category}">${category}</button>`).join("")}
+              </div>
             </div>
           </div>
           <div class="boring-grid">
@@ -1697,15 +2000,33 @@
           return;
         }
 
+        const categoriesBox = boringPortfolio.querySelector(".boring-categories");
+
+        if (event.target.closest(".category-toggle")) {
+          categoriesBox.classList.toggle("is-open");
+          return;
+        }
+
         const categoryButton = event.target.closest("[data-category]");
 
         if (!categoryButton) {
+          categoriesBox?.classList.remove("is-open");
           return;
         }
 
         const category = categoryButton.dataset.category;
+        const isMobile = window.matchMedia("(max-width: 760px)").matches;
 
-        if (!category) {
+        // Al mòbil es tria una sola categoria i el desplegable es tanca
+        if (isMobile) {
+          activeCategories.clear();
+
+          if (category) {
+            activeCategories.add(category);
+          }
+
+          categoriesBox.classList.remove("is-open");
+        } else if (!category) {
           activeCategories.clear();
         } else if (activeCategories.has(category)) {
           activeCategories.delete(category);
@@ -1815,6 +2136,12 @@
         }
 
         const popupImages = popup.querySelector(".popup-images");
+        const popupContent = event.target.closest(".popup-body");
+
+        // Si el ratolí és sobre un text llarg, la roda mou el text
+        if (popupContent && popupContent.scrollHeight > popupContent.clientHeight) {
+          return;
+        }
 
         if (!popupImages) {
           return;
@@ -1916,17 +2243,38 @@
       }, 520);
     }
 
+    const languageNav = document.querySelector("nav");
+    const isMobileLayout = window.matchMedia("(max-width: 760px)");
+
     document.querySelectorAll("nav a").forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
+
         if (link.classList.contains("active")) {
+          // Al mòbil, tocar l'idioma actual obre o tanca la llista
+          if (isMobileLayout.matches) {
+            languageNav.classList.toggle("is-open");
+          }
           return;
         }
 
+        languageNav.classList.remove("is-open");
         setLanguage(link.lang);
         history.pushState({}, "", buildPageUrl(link.lang, currentPageProject));
       });
     });
+
+    // Tocar fora d'un desplegable (idiomes o categories) el tanca
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest("nav")) {
+        languageNav.classList.remove("is-open");
+      }
+
+      if (!event.target.closest(".boring-categories")) {
+        document.querySelector(".boring-categories")?.classList.remove("is-open");
+      }
+    });
+
 
     // ---- Una adreça per a cada projecte: ?p=fatta (i &lang=ca / &lang=en) ----
     // L'adreça surt del títol en català. Si la vols diferent, posa slug: "el-que-vulguis" al projecte de projects.js.
